@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caluryth — Callum Haley</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #1e2235;
+      --navy-light: #262c42;
+      --navy-mid: #2e3450;
+      --gold: #c9a84c;
+      --gold-light: #e2c47a;
+      --gold-dim: rgba(201,168,76,0.15);
+      --white: #f5f4f0;
+      --white-dim: rgba(245,244,240,0.6);
+      --white-faint: rgba(245,244,240,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(30,34,53,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--white-faint);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--white-dim);
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5rem 4rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    }
+
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.4s forwards;
+    }
+
+    .hero-name em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-domain {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 300;
+      color: var(--white-dim);
+      letter-spacing: 0.15em;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.55s forwards;
+    }
+
+    .hero-bio {
+      max-width: 520px;
+      font-size: 1rem;
+      color: var(--white-dim);
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.85s forwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(245,244,240,0.25);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 4rem;
+      position: relative;
+    }
+
+    section + section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 4rem; right: 4rem;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--white-faint), transparent);
+    }
+
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .about-text p {
+      color: var(--white-dim);
+      margin-bottom: 1rem;
+      font-size: 0.97rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--navy-light);
+      border: 1px solid var(--white-faint);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--gold);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .stat-card:hover { border-color: var(--gold-dim); }
+    .stat-card:hover::before { opacity: 1; }
+
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--white-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .project-card {
+      background: var(--navy-light);
+      border: 1px solid var(--white-faint);
+      padding: 2rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(201,168,76,0.3);
+      transform: translateY(-3px);
+    }
+
+    .project-card:hover::after { opacity: 1; }
+
+    .project-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold-dim);
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--white-dim);
+      line-height: 1.7;
+    }
+
+    .project-placeholder {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      color: rgba(245,244,240,0.25);
+      letter-spacing: 0.05em;
+    }
+
+    .project-placeholder::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1px;
+      background: currentColor;
+    }
+
+    /* ── CONTACT ── */
+    .contact-inner {
+      max-width: 640px;
+    }
+
+    .contact-inner p {
+      color: var(--white-dim);
+      margin-bottom: 2rem;
+      font-size: 0.97rem;
+    }
+
+    .contact-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 1px solid var(--gold-dim);
+      padding-bottom: 0.5rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .contact-email:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2.5rem 4rem;
+      border-top: 1px solid var(--white-faint);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    footer p {
+      font-size: 0.75rem;
+      color: rgba(245,244,240,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── STARS ── */
+    #stars-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    nav, .hero, section, footer { position: relative; z-index: 1; }
+
+    /* ── TIMELINE ── */
+    .timeline {
+      margin-top: 3rem;
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      padding-bottom: 3rem;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2rem;
+      top: 0.45rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
+    }
+
+    .timeline-date {
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+
+    .timeline-org {
+      font-size: 0.78rem;
+      color: var(--gold-light);
+      letter-spacing: 0.06em;
+      margin-bottom: 0.6rem;
+    }
+
+    .timeline-desc {
+      font-size: 0.88rem;
+      color: var(--white-dim);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.25rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero, section { padding-left: 2rem; padding-right: 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .projects-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      section + section::before { left: 1.5rem; right: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Calury<span>th</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <p class="hero-eyebrow">Caluryth.com</p>
+    <h1 class="hero-name">Callum <em>Haley</em></h1>
+    <p class="hero-domain">Student &nbsp;·&nbsp; Developer &nbsp;·&nbsp; Leader</p>
+    <p class="hero-bio">
+      Callum Haley is a student and developer based in Canada. He builds software, leads in his community, and is actively working toward a future in technology and civic life. Caluryth is where his work lives.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="section-label reveal">About</p>
+    <h2 class="section-title reveal">Background &amp; Involvement</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>Callum is a high school student pursuing Physics and English Language Arts, with a strong interest in applied technology and civic engagement.</p>
+        <p>He serves as a treasurer on his school's student council, leads and mentors with the Royal Canadian Sea Cadets, and has applied for the Students Commission of Canada Youth Roster.</p>
+        <p>On the technical side, he builds desktop applications, mobile apps, and automation tools — driven by a preference for learning by doing.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-card">
+          <div class="stat-number">RC</div>
+          <div class="stat-label">Sea Cadets — Teaching &amp; Mentoring</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">SC</div>
+          <div class="stat-label">Student Council Treasurer</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">SCC</div>
+          <div class="stat-label">Students Commission of Canada Applicant</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">AI</div>
+          <div class="stat-label">Local AI &amp; Software Development</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label reveal">Work</p>
+    <h2 class="section-title reveal">Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <span class="project-tag">Coming Soon</span>
+        <h3 class="project-title">Project One</h3>
+        <p class="project-desc">Details about this project will be added shortly.</p>
+        <p class="project-placeholder">In progress</p>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">Coming Soon</span>
+        <h3 class="project-title">Project Two</h3>
+        <p class="project-desc">Details about this project will be added shortly.</p>
+        <p class="project-placeholder">In progress</p>
+      </div>
+      <div class="project-card reveal">
+        <span class="project-tag">Coming Soon</span>
+        <h3 class="project-title">Project Three</h3>
+        <p class="project-desc">Details about this project will be added shortly.</p>
+        <p class="project-placeholder">In progress</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="section-title reveal">Milestones</h2>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <p class="timeline-date">2025</p>
+        <h3 class="timeline-title">National Forum Speaker</h3>
+        <p class="timeline-org">Students Commission of Canada</p>
+        <p class="timeline-desc">Spoke at the SCC's National Forum, contributing youth perspectives on civic engagement and structural challenges facing young Canadians at a national level.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <p class="timeline-date">2025</p>
+        <h3 class="timeline-title">CanadaWeWant Conference Delegate</h3>
+        <p class="timeline-org">Students Commission of Canada</p>
+        <p class="timeline-desc">Attended the CanadaWeWant Conference, engaging with youth delegates and leaders from across the country in dialogue about the future of Canada.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <p class="timeline-date">Ongoing</p>
+        <h3 class="timeline-title">Instructor &amp; Mentor</h3>
+        <p class="timeline-org">Royal Canadian Sea Cadets</p>
+        <p class="timeline-desc">Teaches and mentors junior cadets, developing lesson plans and leading instruction in seamanship and discipline within the RCSC program.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <p class="timeline-date">Ongoing</p>
+        <h3 class="timeline-title">Treasurer</h3>
+        <p class="timeline-org">School Student Council</p>
+        <p class="timeline-desc">Manages financial planning and budgeting for student council initiatives, contributing to school-wide leadership and community engagement.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label reveal">Contact</p>
+    <h2 class="section-title reveal">Get in Touch</h2>
+    <div class="contact-inner reveal">
+      <p>Whether it's a project, an opportunity, or just a conversation — feel free to reach out directly.</p>
+      <a href="/cdn-cgi/l/email-protection#056664696970686d6469607c4566646970777c716d2b666a68" class="contact-email">
+        <span class="__cf_email__" data-cfemail="a8cbc9c4c4ddc5c0c9c4cdd1e8cbc9c4dddad1dcc086cbc7c5">[email&#160;protected]</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Calury<span>th</span></div>
+    <p>&copy; 2026 Callum Haley &nbsp;·&nbsp; Caluryth.com</p>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Stars — full page, scrolls with content
+    const canvas = document.getElementById('stars-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = document.body.scrollHeight;
+      initStars();
+    }
+
+    function initStars() {
+      stars = Array.from({ length: 220 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.6 + 0.4,
+        speed: Math.random() * 0.006 + 0.002,
+        phase: Math.random() * Math.PI * 2
+      }));
+    }
+
+    function drawStars(t) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        const a = 0.3 + 0.65 * (0.5 + 0.5 * Math.sin(t * s.speed * 60 + s.phase));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(201,168,76,${a})`;
+        ctx.shadowColor = `rgba(201,168,76,0.8)`;
+        ctx.shadowBlur = 4;
+        ctx.fill();
+      });
+      requestAnimationFrame(drawStars);
+    }
+
+    resize();
+    requestAnimationFrame(drawStars);
+    window.addEventListener('resize', resize);
+    window.addEventListener('load', resize);
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
