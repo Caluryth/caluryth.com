@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "name": "Terra Dashboard",
+    "description": "A personal dashboard to track a Terra journey.",
+    "phase": "prep",
+    "weeks": [3],
+    "type": "project",
+    "status": "completed",
+    "hours": 6.5,
+    "goals": [
+        "Complete the Terra dashboard project",
+        "Track my progress through the Terra program",
+        "Integrate the Github API"
+    ],
+    "notes": []
+}
